@@ -34,7 +34,7 @@ const CartProvider = props => {
     };
 
     const cartContext = {
-        items: cartState.item,
+        items: cartState.items,
         totalAmount: cartState.totalAmount,
         addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler
