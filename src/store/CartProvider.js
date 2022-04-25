@@ -23,8 +23,8 @@ const cartReducer = (state, action) => {
                 ...existingCartItem,
                 amount: existingCartItem.amount + action.item.amount
             };
-            updatedItems = [...state.items];
-            updatedItems[existingCartItemIndex] = updatedItem;
+            updatedItems = [...state.items];    // updatedItems is current items,
+            updatedItems[existingCartItemIndex] = updatedItem;  // and override updatedItem
         } else {        // cart add the item first time
             updatedItems = state.items.concat(action.item);
         }
@@ -34,6 +34,35 @@ const cartReducer = (state, action) => {
             totalAmount: updatedTotalAmount
         };
     } 
+
+    if (action.type === 'REMOVE') {
+        
+        const existingCartItemIndex = state.items.findIndex(
+            item => item.id === action.id
+        );
+        const existingItem = state.items[existingCartItemIndex];
+        const updatedTotalAmount = state.totalAmount - existingItem.price;
+
+        let updatedItems;
+
+        if (existingItem.amount === 1) {    // an item which is amount 1
+            updatedItems = state.items.filter(item =>   // update items except the item of action.id 
+                item.id !== action.id
+            );
+        } else {
+            const updatedItem = {       // an item amount > 1
+                ...existingItem,
+                amount: existingItem.amount - 1     
+            }
+            updatedItems = [...state.items];    // updatedItems is current items,
+            updatedItems[existingCartItemIndex] = updatedItem; // and override updatedItem
+        }
+        return {
+            items: updatedItems,
+            totalAmount: updatedTotalAmount
+        }
+    }
+
     return defaultCartState;
 }
 
