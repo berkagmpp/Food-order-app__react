@@ -25,7 +25,7 @@ const cartReducer = (state, action) => {
             };
             updatedItems = [...state.items];
             updatedItems[existingCartItemIndex] = updatedItem;
-        } else {        // cart does not have the added item
+        } else {        // cart add the item first time
             updatedItems = state.items.concat(action.item);
         }
 
