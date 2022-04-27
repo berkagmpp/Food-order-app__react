@@ -12,7 +12,7 @@
 - useEffect() from react for bump animation (HeaderCartButton.js)
 - useState() from react (App.js, Cart.js, MealItemForm.js, HeaderCartButton.js)
 - Fragment from react (App.js, Header.js)
-- className[` `] dot notation handle (when CSS class with a dash inside of it)
+- className[ ] dot notation handle (when CSS class with a dash inside of it)
 - use SVG code from w3.org in JSX code
 - Show item list (connected component) in JSX using map() from dummy-data
 - Reusable wrapper component(UI) with props.children (Card.js, Input.js, Modal.js)
