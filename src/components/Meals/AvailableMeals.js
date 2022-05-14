@@ -7,10 +7,16 @@ import classes from './AvailableMeals.module.css';
 const AvailableMeals = () => {
     const [mealsList, setMealsList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [httpError, setHttpError] = useState();
 
     useEffect(() => {
         const fetchMeals = async () => {
             const response = await fetch('https://react-food-delivery-app-71444-default-rtdb.firebaseio.com/meals.json');
+            
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+            
             const responseData = await response.json();
 
             const loadedMeals = [];
@@ -28,7 +34,12 @@ const AvailableMeals = () => {
             setIsLoading(false);
         };
 
-        fetchMeals();
+        // the traditional way of handling error inside of promise 
+        // instead of try{} catch{}
+        fetchMeals().catch((error) => {
+            setIsLoading(false);
+            setHttpError(error.message);
+        });
 
     }, []);
 
@@ -36,6 +47,14 @@ const AvailableMeals = () => {
         return (
             <section className={classes.meals}>
                 <p>Loading...</p>
+            </section>
+        );
+    }
+
+    if (httpError) {    // this means httpError has error.message from Error('Something went wrong!')
+        return (
+            <section className={classes.meals}>
+                <p>{httpError}</p>
             </section>
         );
     }
