@@ -1,4 +1,4 @@
-import eact, { useContext } from 'react';
+import React, { useContext } from 'react';
 
 import Modal from '../UI/Modal';
 import classes from './Cart.module.css';
@@ -12,7 +12,7 @@ const Cart = props => {
     const hasItems = cartCxt.items.length > 0;
 
     const cartItemRemoveHandler = id => {
-        cartCxt.removeItem(id)
+        cartCxt.removeItem(id);
     };
     const cartItemAddHandler = item => {
         cartCxt.addItem({
