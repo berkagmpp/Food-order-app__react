@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import useInput from '../../hooks/use-input';
 
@@ -57,10 +57,9 @@ const Checkout = props => {
         city: true
     });
 
-
     const confirmHandler = event => {
         event.preventDefault();
-
+            
         setFormInputValidity({
             name: nameIsValid,
             mobile: mobileIsValid,
@@ -79,6 +78,14 @@ const Checkout = props => {
         if (!formIsValid) {
             return;
         }
+
+        props.onConfirm({
+            name: enteredName,
+            mobile: enteredMobile,
+            street: enteredStreet,
+            postal: enteredPostal,
+            city: enteredCity
+        });
     };
 
     const nameControlStyle = `${classes.control} 
@@ -116,7 +123,7 @@ const Checkout = props => {
             <div className={streetControlStyle}>
                 <label htmlFor="street">Street</label>
                 <input type="text" 
-                       id="street"
+                       id="street" 
                        value={enteredStreet} 
                        onChange={streetChangeHandler} 
                        onBlur={streetBlurHandler} />
